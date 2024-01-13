@@ -25,12 +25,24 @@ const userSchema = new Schema(
       trim: true,
       index: true,
     },
+    // Just Customizing files fields to just store public id so that can be used to delete files from cloudinary when data is deleted using apis
     avatar: {
-      type: String, // cloudinary url
-      required: true,
+      id: {
+        type: String, // cloudinary url
+        required: true,
+      },
+      url: {
+        type: String, // cloudinary url
+        required: true,
+      },
     },
     coverImage: {
-      type: String, // cloudinary url
+      id: {
+        type: String, // cloudinary url
+      },
+      url: {
+        type: String, // cloudinary url
+      },
     },
     watchHistory: [
       {

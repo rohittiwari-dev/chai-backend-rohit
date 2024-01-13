@@ -1,6 +1,5 @@
 import mongoose, { isValidObjectId } from "mongoose";
 import { Tweet } from "../models/tweet.model.js";
-import { User } from "../models/user.model.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
@@ -45,6 +44,7 @@ const updateTweet = asyncHandler(async (req, res, next) => {
   const tweetInfo = await Tweet.findByIdAndUpdate(tweetId);
   if (!tweetInfo) throw new ApiError(400, "No Tweet Found with this tweet id");
   tweetInfo.set({ ...req.body }); // Did this way because find and update function does not returns the updated data
+  // we can also use $set and new true inside the find and update function but to maintain clean code i am using this method
   await tweetInfo.save();
   res
     .status(200)
