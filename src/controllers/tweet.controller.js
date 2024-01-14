@@ -3,6 +3,7 @@ import { Tweet } from "../models/tweet.model.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
+import { User } from "../models/user.model.js";
 
 const createTweet = asyncHandler(async (req, res) => {
   //TODO: create tweet
@@ -15,7 +16,8 @@ const createTweet = asyncHandler(async (req, res) => {
       400,
       "Please Provide this required Fields:" + errorList.toString()
     );
-
+  const user = await User.findById(ownerId);
+  if (!user) throw new ApiError(404, "No user found with this user id");
   const createdTweet = await Tweet.create({ content, owner: ownerId });
 
   res
