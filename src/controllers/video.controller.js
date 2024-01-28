@@ -88,7 +88,7 @@ const publishAVideo = asyncHandler(async (req, res) => {
 const getVideoById = asyncHandler(async (req, res) => {
   const { videoId } = req.params;
   //TODO: get video by id
-  const userId = req.user?.id;
+  const userId = req.user?._id;
   if (!videoId) throw new ApiError("Please Provide a Valid Video Id");
   const videoInfo = await Video.findById(videoId);
   if (!videoInfo) throw new ApiError("No Video Published with this id");

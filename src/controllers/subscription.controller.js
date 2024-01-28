@@ -8,7 +8,7 @@ import { User } from "../models/user.model.js";
 const toggleSubscription = asyncHandler(async (req, res) => {
   const { channelId } = req.params;
   // TODO: toggle subscription
-  const userId = req.user?.id;
+  const userId = req.user?._id;
   if (!channelId || !isValidObjectId(channelId))
     throw new ApiError("Channel Id Required");
   if (!isValidObjectId(channelId)) {
